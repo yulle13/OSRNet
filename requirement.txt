@@ -1,0 +1,8 @@
+numpy
+opencv-python
+scipy
+scikit-image
+matplotlib
+seanorn
+ptflops
+torchsummary

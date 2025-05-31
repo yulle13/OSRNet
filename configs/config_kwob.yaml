@@ -1,0 +1,51 @@
+model:
+    algo: PartialCompletionMask
+    lr: 0.001
+    weight_decay: 0.0001
+    optim: SGD
+    backbone_arch: swing_net
+    backbone_param:
+        in_channels: 4
+        swing_longth: 2
+        swing_width: 3
+        N_CLASSES: 2
+
+data:
+    dataset: "KWOB"
+    trainval_dataset: 'PartialCompDataset'
+    train_image_root: ""
+    train_annot_file: ""
+    val_image_root: ""
+    val_annot_file: ""
+
+    input_size: 256
+
+    eraser_front_prob: 0.5 # case 1 probability
+    eraser_setter:
+        min_overlap: 0.4
+        max_overlap: 1.0
+        min_cut_ratio: 0.001
+        max_cut_ratio: 0.9
+
+    HSV: 0.5
+    enlarge_box: 3.
+    base_aug:
+        flip: True
+        shift: [-0.2, 0.2]
+        scale: [0.8, 1.2]
+    batch_size: 32
+    batch_size_val: 4
+    workers: 12
+    data_mean: [0.485, 0.456, 0.46]
+    data_std: [0.229, 0.224, 0.225]
+
+trainer:
+    epoch: 60
+    change_loss: 100
+    val_freq: 5
+    print_freq: 2
+    save_freq: 5
+    loss_record: ['loss']
+    milestones: [10, 30, 50]
+    gamma: 0.2
+    tensorboard: True
